@@ -1,0 +1,46 @@
+{
+  "kind": "handwritten_demo",
+  "metadata": {
+    "dataset_version": "demo-en-1",
+    "model": null,
+    "prompt_version": null,
+    "config": {
+      "mode": "offline_fixture_replay",
+      "model_calls": 0
+    }
+  },
+  "note": "Handwritten results. They were not produced by a model or generated from expected.",
+  "results": [
+    {
+      "case_id": "review-rounding-defect",
+      "output": {
+        "decision": "REVISE",
+        "reason": "Tax is added after rounding, so the final amount may have extra decimal places."
+      }
+    },
+    {
+      "case_id": "review-rounding-clean",
+      "output": {
+        "decision": "APPROVE",
+        "reason": "The amount including tax is rounded according to the example contract."
+      }
+    },
+    {
+      "case_id": "retrieval-timeout-policy",
+      "output": {
+        "doc_ids": [
+          "guide-logging",
+          "lesson-timeout-retry",
+          "guide-errors"
+        ]
+      }
+    },
+    {
+      "case_id": "workflow-missed-caller",
+      "output": {
+        "decision": "REVISE",
+        "reason": "The plan misses export_csv, which also calls format_amount."
+      }
+    }
+  ]
+}

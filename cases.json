@@ -1,0 +1,78 @@
+{
+  "dataset_version": "demo-en-1",
+  "note": "A teaching format for this example, not a framework standard. Pass only input to the agent, without expected or grader.",
+  "cases": [
+    {
+      "id": "review-rounding-defect",
+      "input": {
+        "task": "Review the change. Return decision REVISE if the contract is violated, otherwise APPROVE. Explain your decision.",
+        "contract": "The final amount including tax is rounded to two decimal places.",
+        "code": "round(net, 2) + tax"
+      },
+      "expected": {
+        "decision": "REVISE"
+      },
+      "grader": {
+        "type": "decision_equals"
+      }
+    },
+    {
+      "id": "review-rounding-clean",
+      "input": {
+        "task": "Review the change. Return decision REVISE if the contract is violated, otherwise APPROVE. Explain your decision.",
+        "contract": "The final amount including tax is rounded to two decimal places.",
+        "code": "round(net + tax, 2)"
+      },
+      "expected": {
+        "decision": "APPROVE"
+      },
+      "grader": {
+        "type": "decision_equals"
+      }
+    },
+    {
+      "id": "retrieval-timeout-policy",
+      "input": {
+        "query": "What should I do when an external API regularly times out?"
+      },
+      "expected": {
+        "any_of_doc_ids": [
+          "lesson-timeout-retry",
+          "guide-api-timeouts"
+        ]
+      },
+      "grader": {
+        "type": "hit_at_k",
+        "k": 3
+      }
+    },
+    {
+      "id": "workflow-missed-caller",
+      "input": {
+        "task": "Review the plan for a shared helper change. If it does not cover all affected callers, return decision REVISE; otherwise PASS. Name the omission.",
+        "change": "Change the result format of format_amount.",
+        "plan_callers": [
+          "checkout",
+          "receipt",
+          "refund",
+          "support",
+          "report"
+        ],
+        "source_callers": [
+          "checkout",
+          "receipt",
+          "refund",
+          "support",
+          "report",
+          "export_csv"
+        ]
+      },
+      "expected": {
+        "decision": "REVISE"
+      },
+      "grader": {
+        "type": "decision_equals"
+      }
+    }
+  ]
+}
